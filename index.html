@@ -1,14 +1,222 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>OTP Verification</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md Sazzad Hossen - Portfolio</title>
+    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/babel-standalone@7.22.5/babel.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        #root {
+            min-height: 100vh;
+        }
+    </style>
 </head>
 <body>
-  <h2>Enter Email and Phone Number</h2>
-  <form action="send_otp.php" method="POST">
-    Email: <input type="email" name="email" required><br><br>
-    Phone: <input type="text" name="phone" required><br><br>
-    <button type="submit">Send OTP</button>
-  </form>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState } = React;
+
+        const portfolioData = {
+            name: "Md Sazzad Hossen",
+            tagline: "Computer Science & Engineering Graduate | Web Developer | AI & IoT Enthusiast",
+            contact: {
+                email: "mdsazzadhossen956@gmail.com",
+                phone: "+8801521256896",
+                linkedin: "https://www.linkedin.com/in/md-sazzad-hossen-931114211/",
+                github: "https://github.com/sazzad125",
+            },
+            about: {
+                summary: "Motivated Computer Science and Engineering graduate with hands-on experience in web development, IT infrastructure, and software quality assurance. Proficient in PHP, Laravel, Python, and JavaScript with strong foundations in AI, IoT, and machine learning. Adept at managing networks, leading IT projects, and contributing to published research.",
+                education: [
+                    { degree: "B.Sc. in Computer Science and Engineering", institution: "City University, Dhaka", year: "2023", cgpa: "2.73/4.00" },
+                    { degree: "Higher Secondary Certificate (Science)", institution: "Adamjee Cantonment College, Dhaka", year: "2017", cgpa: "4.67/5.00" },
+                ],
+            },
+            skills: [
+                "Python", "PHP", "JavaScript", "Laravel", "MySQL", "MongoDB",
+                "Machine Learning", "IoT", "Cybersecurity", "Network Management",
+                "Agile Project Management", "Technical Writing",
+            ],
+            workExperience: [
+                {
+                    role: "IT Officer",
+                    company: "Nirjaas Group, Dhaka",
+                    duration: "Sept 2023 - Present",
+                    responsibilities: [
+                        "Maintained IT infrastructure for 20+ users, achieving 98% system uptime.",
+                        "Implemented firewalls and cybersecurity protocols, reducing threats by 30%.",
+                        "Led development of responsive web applications using PHP, Laravel, and JavaScript.",
+                        "Improved workflow efficiency by 15% through Agile project management.",
+                        "Conducted IT training for staff, increasing software utilization by 20%.",
+                    ],
+                },
+            ],
+            publications: [
+                { title: "IoT Based Air Quality Monitoring and Notification System", journal: "Journal of Networking and Communication Systems", volume: "Vol. 7, Issue 1", date: "Jan 2024" },
+                { title: "IoT Based Solar Energy Collecting as Alternative Energy Source and Monitoring System", journal: "Journal of Computational Mechanics, Power System and Control", volume: "Vol. 7, Issue 2", date: "Apr 2024" },
+                { title: "Phishing Website Detection System Using Machine Learning", journal: "Journal of Networking and Communication Systems", volume: "Vol. 7, Issue 2", date: "Apr 2024" },
+                { title: "IoT Based Live Streaming and Object Detecting AI Robotic Car", journal: "Journal of Networking and Communication Systems", volume: "Vol. 7, Issue 3", date: "Jul 2024" },
+                { title: "Sentiment Analysis with Text Mining: A Study from the Newspaper Contents of Bangladesh", journal: "Journal of Networking and Communication Systems", volume: "Vol. 8, Issue 1", date: "Jan 2025" },
+                { title: "Face Detection with MTCNN Using Densenet for Enhance Security", journal: "Journal of Networking and Communication Systems", volume: "Vol. 8, Issue 1", date: "Jan 2025" },
+            ],
+            certifications: [
+                { name: "PHP with Laravel Framework", issuer: "BASIS Institute of Training and Management (BITM)", year: "2023" },
+                { name: "English Communication Skills", issuer: "BITM", year: "2023" },
+                { name: "Software Testing & Quality Assurance Career Path", issuer: "City University", year: "2023" },
+                { name: "Introduction to Modern AI", issuer: "Cisco Networking Academy", year: "2025" },
+                { name: "Improved Security Solutions with MTCNN and DenseNet Face Detection", issuer: "CDE Annual Conference", year: "2024" },
+            ],
+            extracurricular: [
+                "Programmer, City University Programming Club, 2019",
+                "Inter University Programming Contest (18th Position), City University, 2021",
+                "Improved Security Solutions with MTCNN and DenseNet Face Detection, CDE Annual Conference, 2024",
+                "Scouting, Bangladesh Sea Scout, 2012-2019",
+            ],
+        };
+
+        const NavBar = () => {
+            const scrollToSection = (sectionId) => {
+                document.getElementById(sectionId).scrollIntoView({ behavior: "smooth" });
+            };
+
+            return (
+                <nav className="bg-gray-800 text-white p-4 sticky top-0 z-10">
+                    <ul className="flex justify-center space-x-6">
+                        {["home", "about", "skills", "work", "publications", "certifications", "extracurricular", "contact"].map((section) => (
+                            <li key={section}>
+                                <button
+                                    onClick={() => scrollToSection(section)}
+                                    className="hover:text-blue-400 transition-colors"
+                                >
+                                    {section.charAt(0).toUpperCase() + section.slice(1)}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+            );
+        };
+
+        const Section = ({ id, title, children }) => {
+            const [isOpen, setIsOpen] = useState(true);
+
+            return (
+                <div id={id} className="mb-8">
+                    <h2
+                        className="text-2xl font-bold text-gray-800 border-b-2 border-gray-800 pb-2 cursor-pointer"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        {title} {isOpen ? "▲" : "▼"}
+                    </h2>
+                    {isOpen && <div className="mt-4">{children}</div>}
+                </div>
+            );
+        };
+
+        const App = () => {
+            return (
+                <div>
+                    <header className="bg-gray-900 text-white text-center py-16">
+                        <h1 className="text-4xl font-bold">{portfolioData.name}</h1>
+                        <p className="text-xl mt-2">{portfolioData.tagline}</p>
+                        <div className="mt-4 space-x-4">
+                            <a href={portfolioData.contact.linkedin} className="text-blue-300 hover:underline">LinkedIn</a>
+                            <a href={portfolioData.contact.github} className="text-blue-300 hover:underline">GitHub</a>
+                            <a href={`mailto:${portfolioData.contact.email}`} className="text-blue-300 hover:underline">Email</a>
+                        </div>
+                    </header>
+
+                    <NavBar />
+
+                    <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg">
+                        <Section id="about" title="About Me">
+                            <p>{portfolioData.about.summary}</p>
+                            <h3 className="text-xl font-semibold mt-4">Education</h3>
+                            {portfolioData.about.education.map((edu, index) => (
+                                <p key={index} className="mt-2">
+                                    <strong>{edu.degree}</strong><br />
+                                    {edu.institution} | {edu.year} | CGPA: {edu.cgpa}
+                                </p>
+                            ))}
+                        </Section>
+
+                        <Section id="skills" title="Skills">
+                            <ul className="flex flex-wrap gap-2">
+                                {portfolioData.skills.map((skill, index) => (
+                                    <li key={index} className="bg-blue-600 text-white px-3 py-1 rounded-full">
+                                        {skill}
+                                    </li>
+                                ))}
+                            </ul>
+                        </Section>
+
+                        <Section id="work" title="Work Experience">
+                            {portfolioData.workExperience.map((job, index) => (
+                                <div key={index} className="mb-4">
+                                    <p><strong>{job.role}</strong><br />{job.company} | {job.duration}</p>
+                                    <ul className="list-disc pl-5 mt-2">
+                                        {job.responsibilities.map((resp, i) => (
+                                            <li key={i}>{resp}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </Section>
+
+                        <Section id="publications" title="Publications">
+                            <ul className="list-disc pl-5">
+                                {portfolioData.publications.map((pub, index) => (
+                                    <li key={index}>
+                                        "{pub.title}", <em>{pub.journal}</em>, {pub.volume}, {pub.date}.
+                                    </li>
+                                ))}
+                            </ul>
+                        </Section>
+
+                        <Section id="certifications" title="Certifications & Awards">
+                            <ul className="list-disc pl-5">
+                                {portfolioData.certifications.map((cert, index) => (
+                                    <li key={index}>
+                                        {cert.name}, {cert.issuer}, {cert.year}.
+                                    </li>
+                                ))}
+                            </ul>
+                        </Section>
+
+                        <Section id="extracurricular" title="Extracurricular Activities">
+                            <ul className="list-disc pl-5">
+                                {portfolioData.extracurricular.map((activity, index) => (
+                                    <li key={index}>{activity}</li>
+                                ))}
+                            </ul>
+                        </Section>
+
+                        <Section id="contact" title="Contact">
+                            <p>Email: <a href={`mailto:${portfolioData.contact.email}`} className="text-blue-600 hover:underline">{portfolioData.contact.email}</a></p>
+                            <p>Phone: {portfolioData.contact.phone}</p>
+                            <p>LinkedIn: <a href={portfolioData.contact.linkedin} className="text-blue-600 hover:underline">Profile</a></p>
+                            <p>GitHub: <a href={portfolioData.contact.github} className="text-blue-600 hover:underline">Profile</a></p>
+                            <p>References available upon request.</p>
+                        </Section>
+                    </div>
+
+                    <footer className="bg-gray-900 text-white text-center py-4">
+                        <p>© 2025 Md Sazzad Hossen. All rights reserved.</p>
+                    </footer>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
 </body>
 </html>
